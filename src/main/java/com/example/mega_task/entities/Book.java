@@ -49,6 +49,14 @@ public class Book {
         this.isAvailable = isAvailable;
     }
 
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
     public Book() {
     }
 }
