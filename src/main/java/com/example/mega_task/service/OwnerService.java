@@ -9,8 +9,8 @@ public interface OwnerService {
 
     Owner getById(Long id);
 
-    Owner updateOwner(OwnerModel ownerModel);
+    Owner updateOwner(Long id, OwnerModel ownerModel);
 
-    Owner deleteOwner(OwnerModel ownerModel);
+    Owner deleteOwner(Long id);
 
 }

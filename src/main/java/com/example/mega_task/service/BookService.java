@@ -4,6 +4,7 @@ import com.example.mega_task.entities.Book;
 import com.example.mega_task.models.BookModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
 
@@ -11,11 +12,11 @@ public interface BookService {
 
     List<Book> createBooks(List<BookModel> bookModels);
 
-    Book getById(Long id);
+    Optional<Book> getById(Long id);
 
-    Book updateBook(BookModel bookModel);
+    Book updateBook(Long id, BookModel bookModel);
 
-    Book deleteBook(BookModel bookModel);
+    Book deleteBook(Long id);
 
 
 }

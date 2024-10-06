@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -40,23 +41,32 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getById(Long id) {
-        return bookRepository.findById(id).get();
+    public Optional<Book> getById(Long id) {
+        try{
+            return bookRepository.findById(id);
+        } catch (Exception e){
+            throw new RuntimeException("Failed to find book by ID: " + e.getMessage());
+        }
     }
 
     @Override
-    public Book updateBook(BookModel bookModel) {
-        Book book = bookRepository.findById(bookModel.getId()).get();
+    public Book updateBook(Long id, BookModel bookModel) {
+        Book book = bookRepository.findById(id).get();
 
         book.setTitle(bookModel.getTitle());
         book.setAvailable(bookModel.isAvailable());
-        book.setOwner(bookRepository.findById(bookModel.getOwnerId()).get().getOwner());
+        if (book.getOwner() != null){
+            book.setOwner(bookRepository.findById(bookModel.getOwnerId()).get().getOwner());
+        }
+        else book.setOwner(null);
+
+        bookRepository.save(book);
         return book;
     }
 
     @Override
-    public Book deleteBook(BookModel bookModel) {
-        Book book = bookRepository.findById(bookModel.getId()).get();
+    public Book deleteBook(Long id) {
+        Book book = bookRepository.findById(id).get();
         bookRepository.delete(book);
         return book;
     }

@@ -44,16 +44,18 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner updateOwner(OwnerModel ownerModel) {
-        Owner owner = ownerRepository.findById(ownerModel.getId()).get();
+    public Owner updateOwner(Long id, OwnerModel ownerModel) {
+        Owner owner = ownerRepository.findById(id).get();
         owner.setName(ownerModel.getName());
+
+        ownerRepository.save(owner);
 
         return owner;
     }
 
     @Override
-    public Owner deleteOwner(OwnerModel ownerModel) {
-        Owner owner = ownerRepository.findById(ownerModel.getId()).get();
+    public Owner deleteOwner(Long id) {
+        Owner owner = ownerRepository.findById(id).get();
         ownerRepository.delete(owner);
         return owner;
     }
